@@ -2,7 +2,7 @@ class TVController:
 
     def __init__(self, list_of_channels):
         self.channels = list_of_channels
-        self.default_channel = list_of_channels[0]
+        self.counter = 0
 
     def first_channel(self):
         return self.channels[0]
@@ -14,25 +14,21 @@ class TVController:
         return self.channels[number-1]
 
     def next_channel(self):
-        if self.default_channel == self.channels[-1]:
-            self.default_channel = self.channels[0]
-        elif self.default_channel == self.channels[0]:
-            self.default_channel = self.channels[1]
-        elif self.default_channel == self.channels[1]:
-            self.default_channel = self.channels[2]
-        return self.default_channel
+        if self.channels[self.counter] == self.channels[-1]:
+            self.counter = 0
+        else:
+            self.counter += 1
+        return self.channels[self.counter]
 
     def previous_channel(self):
-        if self.default_channel == self.channels[0]:
-            self.default_channel = self.channels[-1]
-        elif self.default_channel == self.channels[1]:
-            self.default_channel = self.channels[0]
-        elif self.default_channel == self.channels[2]:
-            self.default_channel = self.channels[1]
-        return self.default_channel
+        if self.channels[self.counter] == self.channels[0]:
+            self.counter = len(self.channels) - 1
+        else:
+            self.counter -= 1
+        return self.channels[self.counter]
 
     def current_channel(self):
-        return self.default_channel
+        return self.channels[self.counter]
 
     def is_exist(self, name):
         if name in self.channels or name <= len(self.channels):
