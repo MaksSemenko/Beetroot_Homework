@@ -1,0 +1,42 @@
+{
+    "1": [
+        "to add to point : [here](https://www.amazingcto.com/developer-productivity-compiler-errors/) another article how Rust has really helpful compiler error messages)  (plus [diskussion on that](https://old.reddit.com/r/programming/comments/10wrp9a/comparing_compiler_errors_in_go_rust_scala_java/)",
+        "2023-02-08 19:33"
+    ],
+    "2": [
+        "Literally the worst plotting library",
+        "2023-02-08 19:22"
+    ],
+    "3": [
+        "Yes! I consider PyO3 pretty well \u201cunfuckupable\u201d, my first real useful project worked in Python as soon as it compiled, didn\u2019t even need a debugger.\n\nCompared to the C experience, bugs everywhere. (Guess this is pretty true for Rust in general)",
+        "2023-02-08 19:19"
+    ],
+    "4": [
+        "I said, VSCode checks the types, so I\u2019ve never considered needing another type checker.",
+        "2023-02-08 19:14"
+    ],
+    "5": [
+        "You can solve captchas pretty easily actually, and afaik there are articles online with step by step python instructions to do it",
+        "2023-02-08 19:12"
+    ],
+    "6": [
+        "What OS are you using?\n\nAfter it\u2019s installed, you should be able to type \u201cPython\u201d at any terminal / command prompt to get into it. \n\nI\u2019d recommend using an IDE. PyCharm makes things a lot easier.",
+        "2023-02-08 19:11"
+    ],
+    "7": [
+        "Recurring events are supported",
+        "2023-02-08 19:09"
+    ],
+    "8": [
+        "Yes, there are few tools for copying and mutating function args, but many use-cases are still unsupported. \n\nHere's what exists now:\n\n* [`Unpack`](https://peps.python.org/pep-0692/) allows you to use a `TypedDict` to specify the type of `**kwargs` in a function signature. A major downside is you can't have keyword defaults\n* [`ParamSpec` and `Concatenate`](https://peps.python.org/pep-0612/) allow you to copy complete signatures and even prepend and argument, but they're really only useful for decorators because their scope is limited to nested functions.\n\nI was able to make a simple decorator that lets you copy a signature from one function to another, but you can't mutate it.\n\nHere's the recipe:\n\n```\nCallableT = TypeVar('CallableT', bound=Callable)\nclass copysig(Generic[CallableT]):\n    def __init__(target: CallableT) -&gt; None:\n        pass\n    def __call__(self, wrapped: Callable[..., Any]) -&gt; CallableT:\n        return wrapped\n\ndef mainfunc(arg: int, blarg: str) -&gt; list[str]:\n    ...\n\n@copysig(mainfunc)\ndef otherfunc(*args, **kwargs):\n    dostuff()\n    return mainfunc(*args, **kwargs)\n```",
+        "2023-02-08 18:57"
+    ],
+    "9": [
+        "Just because it\u2019s greenfield doesn\u2019t mean the choice of language is arbitrary. There are other factors to consider. And for a simple CRUD API, performance of the language is rarely the deciding factor.",
+        "2023-02-08 18:55"
+    ],
+    "10": [
+        "There is absolutely no need for polymorphism with `open()`. It\u2019s a perfect use case for function overloading and generics, which means that in case of Python there is a function where an argument has multiple purposes.\n\nI\u2019d give you that you could design it a bit cleaner by requiring keyword arguments and then implementing logic to make them mutually exclusive (e.g. `json.load(file=fileobj)` vs `json.load(path=filename)`). But even then you\u2019ll get to these scenarios. And this also has the downside that now the exclusiveness is not encoded in the signature anymore.",
+        "2023-02-08 18:53"
+    ]
+}
